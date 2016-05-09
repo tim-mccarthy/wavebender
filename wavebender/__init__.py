@@ -62,6 +62,16 @@ def square_wave(frequency=440.0, framerate=44100, amplitude=0.5):
         else:
             yield 0.0
 
+def triangle_wave(frequency=440.0, framerate=44100, amplitude = 0.5):
+    if amplitude > 1.0: amplitude = 1.0
+    if amplitude < 0.0: amplitude = 0.0
+
+    for i in count(0):
+        t = float(i) / float(framerate)
+        yield 2.0 * float(amplitude) * \
+            math.fabs(2.0 * ((t * frequency) - math.floor((t * frequency) + 0.5))) - 1
+
+
 def damped_wave(frequency=440.0, framerate=44100, amplitude=0.5, length=44100):
     if amplitude > 1.0: amplitude = 1.0
     if amplitude < 0.0: amplitude = 0.0
